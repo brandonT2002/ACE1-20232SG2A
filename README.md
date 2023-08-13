@@ -1,1 +1,1 @@
-# Prática 1
+# Práctica 1

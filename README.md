@@ -9,7 +9,7 @@
             Grupo 2
         </td>
         <td width="10%" align="right" valign="top">
-            <img title="logo" alt="logo" src="Img/Logo.png">
+            <img title="logo" alt="logo" src="Img/logo.png">
         </td>
     </tr>
 </table>

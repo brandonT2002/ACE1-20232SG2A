@@ -15,203 +15,317 @@
 </table>
 
 <h1 align="center">
-    Práctica 1<br>Manual de Usuario
+    Práctica 2<br>Manual de Usuario
 </h1>
 
 ## Explicación del juego
-El juego se basa en el clásico juego "Snake", consiste en que el jugador o usuario controla una criatura semejante a una serpiente, que vaga alrededor de un plano delimitado, su principal función es recoger alimentos y tratar de evitar golpear su propia cola o las paredes que rodean el área de juego. 
+Pinball es un juego que se basa en el impulso de una bola en el interior de un tablero equipado con diversos componentes. El objetivo dentro del tablero es hacer pasar la mayor cantidad de veces la pelota por la parte superior
+del cilindro del tablero para acumular puntos, sin que salga del terreno de juego.
 
 Modo de juego:
-* Cada vez que la serpiente come una pieza de comida la cola crece más.
-* El usuario controla la dirección de la cabeza de la serpiente, es decir, puede dirigirse hacia arriba, abajo, izquierda y derecha, por lo tanto, el cuerpo de la serpiente sigue esta trayectoria.
-* El jugador no puede detener el movimiento de la serpiente mientras el juego esté en marcha.
-* Antes de iniciar el juego, podrá seleccionar la velocidad de la serpiente, ésta se mostrará en la pantalla, puede cambiar con los botones de arriba y abajo, siendo 1 la opción más lenta y 4 la más rápida.
-* Cuando la serpiente muera se mostrará en pantalla el mensaje GAME OVER y la puntuación final la cual consiste en la cantidad de alimento que logró comer.
+* El objetivo dentro del tablero es hacer pasar la mayor cantidad de veces la pelota por la parte superior del cilindro del tablero. Al completar la acción varias veces permitirá al jugador avanzar de nivel y obtener así más puntos. Cada vez que se completen los LEDs, el usuario habrá obtenido el derecho de avanzar hacia un nivel superior.
+
+* El menú contiene dos opciones: Nuevo juego y Puntajes
+altos. 
+Con el botón izquierdo se navega entre las opciones, mientras que el botón derecho se selecciona la opción elejida.
+
+* Al seleccionar la opción de nuevo juego, se ingresa un pelota desde el exterior hacia el tablero y se inicia el juego, el jugador podrá operar, por medio de los botones, las paletas.
 
 
-## Explicación del juego en el Arduino
-El juego consta de 2 matrices LED de 8x8 cuyo funcionamiento reside en mostrar tanto el tablero como un mensaje en movimiento, dicho mensaje se muestra de izquierda a derecha al iniciar el juego. 
+
+## Diseño del juego
+
+El diseño del juego consiste en un tablero, que tiene un cilindro en la parte superior del mismo. En el cilindro se muestra una pantalla rodeada de LEDS.
+En la parte inferior del tablero se pueden encontrar 2 paletas que funcionan como bloqueadores para que la pelota no salga del área de juego.
+
+Fuera del área de juego, se encuentran los botones que permiten accionar las paletas o navegar por los menús que se presenten en la pantalla. Cada vez que se completen los LEDs, el usuario habrá obtenido el derecho de avanzar hacia un nivel superior.
 
 <p align="center">
         <img src="Img/1.jpeg">
 </p>
 
-Antes de iniciar el juego se mostrará el número “01”, el cual representa la velocidad de la serpiente, esta velocidad se puede modificar con los botones de arriba y abajo; mientras más alto sea el número, mayor será la velocidad de la serpiente.
+**Mecánica del Juego**
+
+* Cuando se inicie el juego, se mostrará un mensaje de bienvenida, indicando también otros datos referentes a los desarrolladores del prototipo. Una vez mostrados todos los nombres, se redireccionará al menú principal.
+
+* En la pantalla se deberá mostrará el nivel actual y la cantidad de vidas disponibles, en lavfila superior, y el puntaje actual, en la fila inferior.
+
+* Las vidas se muestran por medio de pequeños círculos, las vidas disponibles serán círculos llenos y las vidas que se
+han perdido será el contorno del círculo.
 
 <p align="center">
         <img src="Img/2.jpeg">
 </p>
 
+**Puntajes**
 
-Inicio del juego: el juego iniciará una vez el jugador mantenga presionado el botón de start durante al menos 3 segundos. La serpiente puede aparecer en cualquier fila de manera aleatoria y también aparecerá en alguna de las columnas iniciales de los 2 displays.
+* Al seleccionar la opción de puntajes, se hará un recorrido por los diez mejores puntajes que el sistema haya registrado. 
+Para avanzar en este recorrido, se emplearán los botones exteriores. El botón izquierdo permitirá avanzar entre los registros y el botón derecho se usará para salir hacia el menú principal.
 
-<p align="center">
-        <img src="Img/3.jpeg">
-</p>
-
-**Movimiento de la Serpiente**
-
-* El tamaño de la serpiente al iniciar es de 2 puntos de la matriz.
-* El movimiento será únicamente de un punto a un punto.
-* Cada vez que la serpiente logra comerse algo crece en tamaño una posición y su velocidad aumenta un poco. 
-* Si se presiona el botón Start para pasar a un estado de pausa y luego se vuelve a presionar para continuar el juego, la serpiente se mostrará en la posición en la que estaba antes de entrar en el estado de pausa.
-* La serpiente se puede controlar mediante cualquiera de los 4 botones direccionales (arriba, abajo, izquierda, derecha).
-
-<p align="center">
-        <img src="Img/4.jpeg">
-</p>
-
-**Posicionamiento de Manzanas**
-
-Inicialmente la manzana estará en una posición aleatoria dentro de la matriz, al momento de que la serpiente colisione con una manzana esta desaparecerá del tablero y aumenta el tamaño de la serpiente y nuevamente se generará una manzana en una nueva posición aleatoria.
-
-**Game Over**
-
-El juego terminará al momento de que la serpiente colisione con uno de los muros del tablero delimitado por las matrices de LEDs o al colisionar con sigo mismo. 
-
-Al haber terminado la partida se mostrará el punteo que se ha obtenido durante el juego.
-
-<p align="center">
-        <img src="Img/5.jpeg">
-        <img src="Img/6.jpeg">
-</p>
 
 <br>
 <br>
 <br>
 
 <h1 align="center">
-    Práctica 1<br>Manual Técnico
+    Práctica 2<br>Manual Técnico
 </h1>
 
 
 ## Métodos Generales
-### Método pintarLed
-* Enciende el LED en las coordenadas especificadas.
-* Utilizado para mostrar elementos del juego en la matriz LED.
+### Método mostrarNombres
+* Muestra el número de grupo y los integrandes en la pantalla LCD.
 ``` c++
-void pintarled(int x, int y){
-  if(x<8){
-    digitalWrite(x+46,HIGH);
-    digitalWrite(y,LOW);
-    delay(1);
-    digitalWrite(x+46,LOW);
-    digitalWrite(y,HIGH);
-  }else{
-    driver.setLed(0,y,x-8,true);
-  }
-}
-```
-
-### Metodo printNumero
-* Muestra el puntaje numérico en la matriz LED.
-* Divide el puntaje en centenas, decenas y unidades y muestra los dígitos correspondientes.
-``` c++
-void printNumero(int n){
-  int centenas = int(n/100);
-  int decenas = int((n-centenas*100)/10);
-  int unidades = int(n-centenas*100-decenas*10);
-
-  for(int x = 0;x<4;x++){
-    for(int y = 0;y<8;y++){
-      if(numeros[centenas][y][x]){
-        pintarled(x+1,y);
-      }
+void mostrarNombres() {
+    lcd.print("Grupo #2");
+    for (int i = 0; i < 4; i ++) {
+        lcd.setCursor(0, 1);
+        lcd.print(nombres[i]);
+        delay(1000);
     }
-  }
+}
+```
 
-  for(int x = 0;x<4;x++){
-    for(int y = 0;y<8;y++){
-      if(numeros[decenas][y][x]){
-        pintarled(x+6,y);
-      }
+### Método iniciarTrigger
+* Inicia la secuencia del Trigger para comenzar a medir.
+``` c++
+void iniciarTrigger()
+{
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+ 
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+ 
+  digitalWrite(trig, LOW);
+}
+```
+
+
+### Método calcularDistancia
+* Calcula la distancia en cm.
+* Utiliza las ondas que envía y recibe el sensor para calcular la distancia deseada en las unidades deseadas.
+``` c++
+float calcularDistancia()
+{
+  unsigned long tiempo = pulseIn(echo, HIGH);
+ 
+  float distancia = tiempo * 0.000001 * sonido / 2.0;
+  Serial.print(distancia);
+  Serial.print("cm");
+  Serial.println();
+  delay(500);
+ 
+  return distancia;
+}
+```
+
+### Método registrarPuntaje
+* En este método se registran los puntajes de los jugadores
+``` c++
+void registrarPuntaje(unsigned long puntaje) {
+    if (puntajes[9][1] == "") {
+        for (int i = 0; i < 10; ++ i) {
+            if (puntajes[i][1] == "") {
+                puntajes[i][1] = String(puntaje);
+                sort();
+                return;
+            }
+        }
+        return;
     }
-  }
+    puntajes[9][1] = String(puntaje);
+    sort();
+}
+```
 
-  for(int x = 0;x<4;x++){
-    for(int y = 0;y<8;y++){
-      if(numeros[unidades][y][x]){
-        pintarled(x+11,y);
-      }
+### Método loop
+* Realiza el movimiento de los servos.
+* Recibe las señales emitidas por los botones y las envía a la pantalla LCD, dependiendo del tipo de acción que se esté realizando o en cuál menú se encuentre el jugador. 
+``` c++
+void loop() {
+  iniciarTrigger();
+  float distancia = calcularDistancia();
+  if (distancia > tope)
+  {
+    digitalWrite(led, LOW);
+  }
+ else if (distancia < tope)
+  {
+    digitalWrite(led, HIGH);
+   }
+  
+     switch (estado) {
+    case MENSAJE:
+        lcd.clear();
+        mostrarNombres();
+        estado = Estado::MENU;
+        break;
+    case MENU:
+        lcd.clear();
+        lcd.print(">");
+        lcd.setCursor(2, 0);
+        lcd.print("NUEVO JUEGO");
+        lcd.setCursor(2, 1);
+        lcd.print("PUNTAJES ALTOS");
+      	opcion = 0;
+      	opcionI = 1;
+        LOOP
+        {
+            // SUBE / BAJA
+            if (!digitalRead(PULSADOR1)) {
+                pulsacion1 = false;
+            }
+            if (!pulsacion1 && digitalRead(PULSADOR1)) {
+                pulsacion1 = true;
+                opcionI = (opcionI + 1) % 2;
+                opcion = (opcion + 1) % 2;
+                lcd.setCursor(0, opcionI);
+                lcd.print(" ");
+                lcd.setCursor(0, opcion);
+                lcd.print(">");
+            }
+            // SELECCIONAR
+            if (!digitalRead(PULSADOR2)) {
+                pulsacion2 = false;
+            }
+            if (!pulsacion2 && digitalRead(PULSADOR2)) {
+                pulsacion2 = true;
+                // ELECCION
+                if (opcion == 0) {
+                    estado = Estado::JUEGO;
+                    break;
+                }
+                else if (opcion == 1) {
+                    estado = Estado::PUNTAJES;
+                    break;
+                }
+            }
+        }
+        break;
+    case JUEGO:
+        lcd.clear();
+        lcd.print("JUGANDO...");
+        puntos = 0;
+        LOOP {
+            // LADO IZQUIERDO
+            if(!digitalRead(PULSADOR1)) {
+                tirado1 = false;
+            }
+            if(!tirado1 && digitalRead(PULSADOR1)) {
+              	lcd.setCursor(0, 1);
+              	lcd.print("IZQ");
+                pulsacion1 = true;
+                tirado1 = true;
+                lastTime1 = millis();
+            }
+            if(pulsacion1) {
+                if(!abierto1) {
+                    palancaIzq.write(60);
+                }
+                if(!abierto1 && millis() - lastTime1 >= 300) {
+                    lastTime1 = millis();
+                    abierto1 = true;
+                }
+                if(abierto1) {
+                    palancaIzq.write(0);
+                }
+                if(abierto1 && millis() - lastTime1 >= 300) {
+                    lastTime1 = millis();
+                    abierto1 = false;
+                    pulsacion1 = false;
+                }
+            }
+            // LADO DERECHO
+            if(!digitalRead(PULSADOR2)) {
+                tirado2 = false;
+            }
+            if(!tirado2 && digitalRead(PULSADOR2)) {
+              	lcd.setCursor(0, 1);
+              	lcd.print("DER");
+                pulsacion2 = true;
+                tirado2 = true;
+                lastTime2 = millis();
+            }
+            if(pulsacion2) {
+                if(!abierto2) {
+                    palancaDer.write(120);
+                }
+                if(!abierto2 && millis() - lastTime2 >= 300) {
+                    lastTime2 = millis();
+                    abierto2 = true;
+                }
+                if(abierto2) {
+                    palancaDer.write(180);
+                }
+                if(abierto2 && millis() - lastTime2 >= 300) {
+                    lastTime2 = millis();
+                    abierto2 = false;
+                    pulsacion2 = false;
+                }
+            }
+        }
+        break;
+    case PUNTAJES:
+        lcd.clear();
+        mostrarPuntaje();
+        posicion = 0;
+        LOOP {
+            // AVANZA
+            if (!digitalRead(PULSADOR1)) {
+                pulsacion1 = false;
+            }
+            if (!pulsacion1 && digitalRead(PULSADOR1)) {
+                pulsacion1 = true;
+                posicion = (posicion + 1) % 10;
+                mostrarPuntaje();
+            }
+            // SELECCIONAR
+            if (!digitalRead(PULSADOR2)) {
+                pulsacion2 = false;
+            }
+            if (!pulsacion2 && digitalRead(PULSADOR2)) {
+                pulsacion2 = true;
+                estado = Estado::MENU;
+                break;
+            }
+        }
+        break;
     }
-  }
 }
+
 ```
 
-## Métodos de Jugabilidad
-### Método printSerpiente
-* Muestra la serpiente en la matriz LED.
-* Utiliza las coordenadas almacenadas en los arreglos serpienteX y serpienteY para mostrar la serpiente.
+
+## Métodos para la Jugabilidad
+
+
+### Método loop
+* 
 ``` c++
-void printSerpiente(){
-  for(int i = 0; i<longitudSerpiente; i++){
-    pintarled(serpienteX[i],serpienteY[i]);
-  }
-}
-```
-
-### Método printManzana
-* Muestra la manzana en la matriz LED.
-* Utiliza las coordenadas manzanaX y manzanaY para mostrar la manzana.
-``` c++
-void printManzana(){
-  pintarled(manzanaX,manzanaY);
-}
-```
-
-### Método moverSerpiente
-* Actualiza la posición de la serpiente en función de su dirección actual.
-* Maneja las colisiones con los bordes y consigo misma, lo que puede resultar en la pérdida del juego.
-``` c++
-void moverSerpiente(){
-  int auxX;
-  int auxY;
-
-  for(int i = longitudSerpiente-1; i>=0; i--){
-    serpienteX[i+1] = serpienteX[i];
-    serpienteY[i+1] = serpienteY[i];
-  }
-
-  longitudSerpiente++;
-
-  if(direccionActual == "up"){
-    serpienteY[0]--;
-  }else if(direccionActual == "down"){
-    serpienteY[0]++;
-  }else if(direccionActual == "left"){
-    serpienteX[0]--;
-  }else if(direccionActual == "right"){
-    serpienteX[0]++;
-  }
-
-  xActual = serpienteX[0];
-  yActual = serpienteY[0];
-
-  if(xActual<0||xActual>15||yActual<0||yActual>7){
-    perdio = true;
-    Serial3.print(xActual);
-    Serial3.print(", ");
-    Serial3.println(yActual);
-    Serial3.println("Perdio por colision con borde");
-  }
-
-  if(revisarColision(xActual,yActual,1)){
-    perdio = true;
-    Serial3.println("Perdio por colision consigo mismo");
-  }
-}
-```
-
-### Función revisarColision
-* Verifica si hay colisiones entre las coordenadas (x, y) y la serpiente.
-* Puede comenzar la búsqueda desde un índice específico (inicio) para verificar colisiones con segmentos anteriores de la serpiente.
-``` c++
-bool revisarColision(int x, int y, int inicio){
-  for(int i = inicio; i<longitudSerpiente; i++){
-    if(serpienteX[i] == x && serpienteY[i] == y){
-      return true;
+void loop() {
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  DURACION = pulseIn(ECO, HIGH);
+  DISTANCIA = DURACION / 58.2;
+  Serial.println(DISTANCIA);
+  
+  if (DISTANCIA <= 20 && DISTANCIA >= 0) {
+    if (estado == APAGADO) {
+      estado = ENCENDIDO;
+      encenderSiguienteLed();
+      pts += incremento;
+      lcd.setCursor(0, 1);
+  	  lcd.print(pts);
     }
+  } else {
+    estado = APAGADO;
   }
-  return false;
+  
+  if (encendidos == 6) {
+    delay(200);
+  	apagarLeds();
+  }
 }
 ```
